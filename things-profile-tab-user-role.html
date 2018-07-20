@@ -43,29 +43,12 @@ Copyright © HatioLab Inc. All rights reserved.
 			}
 		</style>
 
-		<things-search-form 
-			id="search-form"
-			form-fields="[[searchFormFields]]" 
-			select-fields="[[selectFields]]"
-			sort-fields="[[sortFields]]"
-            action-url="user_role_histories"
-			page="{{page}}"
-			limit="[[limit]]"
-			hidden
-			last-response="{{lastResponse}}">
+		<things-search-form id="search-form" form-fields="[[searchFormFields]]" select-fields="[[selectFields]]" sort-fields="[[sortFields]]"
+		    action-url="user_role_histories" page="{{page}}" limit="[[limit]]" hidden last-response="{{lastResponse}}">
 		</things-search-form>
 
-		<things-resource-grid 
-			id="grid"
-			grid-height="[[gridHeight]]"
-			model="[[gridModel]]" 
-			columns="[[gridColumns]]"
-			config="[[gridConfig]]"
-			buttons="[[buttons]]"
-			current-page="{{page}}"
-			limit="{{limit}}"
-			data="[[items]]"
-			total-count="[[itemCount]]">
+		<things-resource-grid id="grid" grid-height="[[gridHeight]]" model="[[gridModel]]" columns="[[gridColumns]]" config="[[gridConfig]]"
+		    buttons="[[buttons]]" current-page="{{page}}" limit="{{limit}}" data="[[items]]" total-count="[[itemCount]]">
 		</things-resource-grid>
 	</template>
 
@@ -79,23 +62,23 @@ Copyright © HatioLab Inc. All rights reserved.
 				Things.ApprSubmitPopupBehavior
 			],
 
-            properties: {
-                gridConfig: {
+			properties: {
+				gridConfig: {
 					type: Object,
-					value: function() {
+					value: function () {
 						return {
-						checkBar: false
+							checkBar: false
 						};
 					}
 				},
 
-                gridModel: {
+				gridModel: {
 					type: Array,
-					value: function() {
-						return [ {
+					value: function () {
+						return [{
 							fieldName: 'user_account_id'
 						}, {
-							fieldName: 'role_id'
+							fieldName: 'role_detail'
 						}, {
 							fieldName: 'status'
 						}, {
@@ -104,10 +87,10 @@ Copyright © HatioLab Inc. All rights reserved.
 					}
 				},
 
-                gridColumns: {
+				gridColumns: {
 					type: Array,
-					value: function() {
-						return [ {
+					value: function () {
+						return [{
 							name: 'user_account_id',
 							fieldName: 'user_account_id',
 							width: 150,
@@ -119,8 +102,8 @@ Copyright © HatioLab Inc. All rights reserved.
 								textAlignment: 'center'
 							}
 						}, {
-							name: 'role_id',
-							fieldName: 'role_id',
+							name: 'role_detail',
+							fieldName: 'role_detail',
 							width: 250,
 							editable: false,
 							header: {
@@ -157,7 +140,7 @@ Copyright © HatioLab Inc. All rights reserved.
 
 				gridButtons: {
 					type: Array,
-					value: function() {
+					value: function () {
 						return [{
 							id: 'export-btn',
 							text: 'export',
@@ -166,26 +149,38 @@ Copyright © HatioLab Inc. All rights reserved.
 					}
 				},
 
-                searchFormFields: {
-                    type: Array,
-                    value: function() {
-                        return [{
-							label: Things.DataGlobal.t('label.status'),
-							name: "status",
-							op: "eq"
-						},
-						{
-							name: "user_account_id",
-							op: "eq",
-							type: "hidden",
-							default: Things.DataGlobal.user.id
-						}];
-                    }
-                }
-            },
+				searchFormFields: {
+					type: Array,
+					value: function () {
+						return [{
+								label: Things.DataGlobal.t('label.status'),
+								name: "status",
+								op: "eq"
+							},
+							{
+								name: "user_account_id",
+								op: "eq",
+								type: "hidden",
+								default: Things.DataGlobal.user.id
+							}
+						];
+					}
+				},
 
-            ready: function(){
+				lastResponse: {
+					type: Object,
+					observer: '_lastResponseChanged'
+				}
+			},
+
+			ready: function () {
 				this.$['search-form'].submitMyForm();
+			},
+			// role의 name과 description이 보이도록 수정
+			_lastResponseChanged: function (response) {
+				response.items.forEach(item => {
+					item.role_detail = item.role.name + "(" + item.role.description + ")"
+				})
 			}
 		});
 	</script>
