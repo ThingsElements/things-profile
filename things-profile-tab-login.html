@@ -204,8 +204,8 @@ Copyright © HatioLab Inc. All rights reserved.
 							type: "date-from-to-picker",
 							userData: {
 								format: "YYYY-MM-DD",
-								min: moment(new Date(Date.parse(new Date) - 3 * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD'),
-								max: moment(new Date()).format('YYYY-MM-DD')
+								min: moment(new Date(Date.parse(new Date) + (1 * 1000 * 60 * 60 * 24) - 3 * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD'),
+								max: moment(new Date(Date.parse(new Date) + 1 * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD')
 							}
 						},
 						{
@@ -218,7 +218,7 @@ Copyright © HatioLab Inc. All rights reserved.
 					}
 				},
 
-				DateCount: {
+				dateCount: {
 					type: Number,
 					value: 1
 				}
@@ -234,17 +234,17 @@ Copyright © HatioLab Inc. All rights reserved.
 			},
 
 			threeDaysAgo: function(e){
-				this.DateCount++;
-				this.$['search-form'].setFormData({'created_at': moment(new Date(Date.parse(new Date) - 3 * this.DateCount * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD')+','+
-																moment(new Date(Date.parse(new Date) - 3 * (this.DateCount - 1) * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD') });
+				this.dateCount++;
+				this.$['search-form'].setFormData({'created_at': moment(new Date(Date.parse(new Date) + (1 * 1000 * 60 * 60 * 24) - 3 * this.dateCount * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD')+','+
+																moment(new Date(Date.parse(new Date) + (1 * 1000 * 60 * 60 * 24) - 3 * (this.dateCount - 1) * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD') });
 				this.$['search-form'].submitMyForm();
 			},
 
 			threeDaysLater: function(e){
-				if(this.DateCount > 1){
-					this.DateCount--;
-					this.$['search-form'].setFormData({'created_at': moment(new Date(Date.parse(new Date) - 3 * this.DateCount * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD')+','+
-																	moment(new Date(Date.parse(new Date) - 3 * (this.DateCount - 1) * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD') });
+				if(this.dateCount > 1){
+					this.dateCount--;
+					this.$['search-form'].setFormData({'created_at': moment(new Date(Date.parse(new Date) + (1 * 1000 * 60 * 60 * 24) - 3 * this.dateCount * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD')+','+
+																	moment(new Date(Date.parse(new Date) + (1 * 1000 * 60 * 60 * 24) - 3 * (this.dateCount - 1) * 1000 * 60 * 60 * 24)).format('YYYY-MM-DD') });
 					this.$['search-form'].submitMyForm();
 				}
 			}
