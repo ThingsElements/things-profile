@@ -198,16 +198,17 @@ Copyright © HatioLab Inc. All rights reserved.
       auto 
       hidden>Role requested and admin will check it at e-mail.</things-i18n-msg>
 
-    <paper-card heading="[[heading]]">
+    <!--paper-card heading="[[heading]]"-->
+    <paper-card>
       <button on-tap="closeProfile" class="close">
         <iron-icon icon="icons:cancel"></iron-icon>
       </button>
 
-      <img src="[[img]]"></img>
+      <!--img src="[[img]]"></img-->
 
-      <button on-tap="logout" class="logout">
+      <!--button on-tap="logout" class="logout">
         <iron-icon icon="icons:exit-to-app"></iron-icon>
-      </button>
+      </button-->
 
       <div id="info">
         <content>
@@ -370,7 +371,7 @@ Copyright © HatioLab Inc. All rights reserved.
        */
       showChangePasswordScreen: function(event) {
         var element = document.createElement('things-change-password');
-        element.title = Things.DataGlobal.t('button.change_password');
+        element.title = Things.DataGlobal.t('button.change_password')
 
         element.actionUrl = 'users/change_pass/' + this.globals.user.id;
         element.method = 'POST';
