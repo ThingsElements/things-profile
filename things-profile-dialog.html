@@ -383,10 +383,11 @@ Copyright © HatioLab Inc. All rights reserved.
           me.logout();
         });
 
-        element.addEventListener("things-change-password-failure", function(event) {
-          var response = event.detail.request.xhr.response;
-          this.openResponseError(response);
-        });
+        // things-change-password에서 비밀번호 오류를 직접 처리하도록 함.
+        // element.addEventListener("things-change-password-failure", function(event) {
+        //   var response = event.detail.request.xhr.response;
+        //   this.openResponseError(response);
+        // });
 
         var event = {
           view: element,
