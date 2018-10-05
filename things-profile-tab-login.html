@@ -228,11 +228,17 @@ Copyright © HatioLab Inc. All rights reserved.
 
 			listeners: {
 				'three-days-ago-btn-tap': 'threeDaysAgo',
-				'three-days-later-btn-tap': 'threeDaysLater'
+				'three-days-later-btn-tap': 'threeDaysLater',
+				'refresh-btn-tap' :'refresh',
+				'search-form.things-search-form-configured' :'refresh'
 			},
 
 			ready: function(){
-				this.$['search-form'].submitMyForm();
+			},
+			refresh : function(){
+				if(this.$['search-form'].formFields.length>0){
+					this.$['search-form'].submitMyForm();
+				}
 			},
 
 			threeDaysAgo: function(e){
