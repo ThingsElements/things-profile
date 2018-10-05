@@ -177,7 +177,11 @@ Copyright © HatioLab Inc. All rights reserved.
 				gridButtons: {
 					type: Array,
 					value: function() {
-						return [{
+						return [
+						{
+							id: 'refresh-btn',
+							text: 'refresh'
+						},{
 							id: 'three-days-ago-btn',
 							text: 'three-days-ago'
 						},{
@@ -233,7 +237,7 @@ Copyright © HatioLab Inc. All rights reserved.
 				'search-form.things-search-form-configured' :'refresh'
 			},
 
-			ready: function(){
+			ready: function(){ 
 			},
 			refresh : function(){
 				if(this.$['search-form'].formFields.length>0){
