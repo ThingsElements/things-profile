@@ -164,7 +164,14 @@ Copyright © HatioLab Inc. All rights reserved.
 			 */
 			_isSignedIn: function(name) {
 				return name ? false : true;
-			}
+			},
+
+			attached: function() {
+				//상단의 iron-icon 색상 바꿔주기 
+				var findIconRoot = this.$$('paper-icon-button');
+				var findIcon = findIconRoot.$$('iron-icon');
+				findIcon.style['fill'] = '#8cc9e7';
+     		}	
 		});
 	</script>
 </dom-module>
