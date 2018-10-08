@@ -12,11 +12,11 @@ Copyright © HatioLab Inc. All rights reserved.
         <style>
         :host {
             display: block;
-            @apply(--layout-vertical);
-            @apply(--layout-flex);
+            @apply --layout-vertical;
+            @apply --layout-flex;
         }
         things-layout-hades {
-            @apply(--layout-flex-2);
+            @apply --layout-flex-2;
         }
         </style>
         <things-layout-hades sections="[[sections]]">
@@ -50,7 +50,20 @@ Copyright © HatioLab Inc. All rights reserved.
                         }];
                     }
                 }
-            }
+            },
+            listeners: {
+				'things-layout-tab-changed' : 'tabChangeProfile'
+			},
+			tabChangeProfile : function(e){
+				var tabName = e.detail;
+                if(tabName == 'firstTab' && this.$$('things-profile-tab-login') && this.$$('things-profile-tab-login').$$('things-resource-grid').grid && this.$$('things-profile-tab-login').$$('things-resource-grid').grid.resetGrid){
+                    this.$$('things-profile-tab-login').$$('things-resource-grid').grid.resetGrid();
+				}else if(tabName == 'secondTab' && this.$$('things-profile-tab-user') && this.$$('things-profile-tab-user').$$('things-resource-grid').grid && this.$$('things-profile-tab-user').$$('things-resource-grid').grid.resetGrid){
+                    this.$$('things-profile-tab-user').$$('things-resource-grid').grid.resetGrid();
+				}else if(tabName == 'thirdTab' && this.$$('things-profile-tab-user-role') && this.$$('things-profile-tab-user-role').$$('things-resource-grid').grid && this.$$('things-profile-tab-user-role').$$('things-resource-grid').grid.resetGrid){
+                    this.$$('things-profile-tab-user-role').$$('things-resource-grid').grid.resetGrid();
+				}
+			}
         });
     </script>
 </dom-module>
