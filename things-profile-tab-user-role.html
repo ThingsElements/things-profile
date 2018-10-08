@@ -34,12 +34,12 @@ Copyright © HatioLab Inc. All rights reserved.
 		<style>
 			:host {
 				display: block;
-				@apply(--layout-vertical);
-				@apply(--layout-flex);
+				@apply --layout-vertical;
+				@apply --layout-flex;
 			}
 			
 			things-resource-grid {
-				@apply(--layout-flex);
+				@apply --layout-flex;
 			}
 		</style>
 
@@ -173,14 +173,25 @@ Copyright © HatioLab Inc. All rights reserved.
 				}
 			},
 
+			listeners: {
+				'search-form.things-search-form-configured' :'refresh'
+			},
+
 			ready: function () {
 				this.$['search-form'].submitMyForm();
 			},
+
 			// role의 name과 description이 보이도록 수정
 			_lastResponseChanged: function (response) {
 				response.items.forEach(item => {
 					item.role_detail = item.role.name + "(" + item.role.description + ")"
 				})
+			},
+			
+			refresh : function(){
+				if(this.$['search-form'].formFields.length>0){
+					this.$['search-form'].submitMyForm();
+				}
 			}
 		});
 	</script>
