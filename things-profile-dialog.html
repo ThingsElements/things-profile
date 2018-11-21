@@ -337,7 +337,7 @@ Copyright © HatioLab Inc. All rights reserved.
          */
         email: {
           type: String,
-          computed: "_computeEmail(globals.user.email)"
+          computed: "_computeEmail(opened, globals.user.email)"
         }
       },
 
@@ -459,8 +459,13 @@ Copyright © HatioLab Inc. All rights reserved.
       /**
        * compute email
        */
-      _computeEmail: function (email) {
-        if (!(app.encryptFields && app.encryptFields.includes('email')))
+      _computeEmail: function (opened, email) {
+        if (!opened)
+          return '';
+
+        var app = window.app
+
+        if (!(app && app.encryptFields && app.encryptFields.includes('email')))
           return email
 
         var isBase64Encoded = ((str) => {
