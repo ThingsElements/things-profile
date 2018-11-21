@@ -213,7 +213,7 @@ Copyright © HatioLab Inc. All rights reserved.
       <div id="info">
         <content>
           <div class="user">
-            <strong>[[globals.user.name]]</strong> [[globals.user.email]]
+            <strong>[[globals.user.name]]</strong> [[email]]
           </div>
 
           <paper-button raised color="green" on-tap="showChangePasswordScreen">
@@ -345,6 +345,15 @@ Copyright © HatioLab Inc. All rights reserved.
         roleRequestUrl: {
           type: String,
           observer: '_roleReqUrlChanged'
+        },
+
+        /**
+         * decoded email
+         * ********
+         */
+        email: {
+          type: String,
+          computed: "_computeEmail(globals.user.email)"
         }
       },
 
@@ -461,7 +470,25 @@ Copyright © HatioLab Inc. All rights reserved.
           title: Things.DataGlobal.t('label.success'),
           text: me.tRequestRoleSucess
         });
-      }
+      },
+
+      /**
+       * compute email
+       */
+       _computeEmail: function(email) {
+         if(!(app.encryptFields && app.encryptFields.includes('email')))
+          return email
+
+        var isBase64Encoded = ((str) => {
+          try {
+            return btoa(atob(str)) == str;
+          } catch (err) {
+            return false;
+          }
+        })(email)
+
+        return isBase64Encoded ? atob(email) : email
+       }
     });
   </script>
 </dom-module>
